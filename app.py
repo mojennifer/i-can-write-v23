@@ -57,6 +57,7 @@ def prediction(filename):
     img = crop_square(img, 32, cv2.INTER_AREA)
     img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)[1]
     img_re = img.reshape(32,32,1)
+    img_re /= 255
     model.run_eagerly=True
     probabilities = model.predict(np.array( [img,] ))[0,:]
     print(probabilities)
