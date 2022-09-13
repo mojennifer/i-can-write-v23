@@ -44,6 +44,7 @@ def prediction(filename):
     mypath = os.path.join('uploads', filename)
     #read image as grayscale
     img_gray = cv2.imread(mypath, cv2.IMREAD_GRAYSCALE)
+    img_gray = cv2.resize(img_gray, (64,64), interpolation = cv2.INTER_NEAREST)
     # define a threshold, 128 is the middle of black and white in grayscale
     thresh = 128
     # threshold the image
@@ -54,9 +55,9 @@ def prediction(filename):
     cropped_image = crop_rows[:, ~np.all(crop_rows==0, axis=0)]
     top, bottom, left, right = [10]*4
     img = cv2.copyMakeBorder(cropped_image, top, bottom, left, right, cv2.BORDER_CONSTANT, value=[0,0,0])
-    img = crop_square(img, 32, cv2.INTER_AREA)
+    img = crop_square(img, 64, cv2.INTER_AREA)
     img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)[1]
-    img_re = img.reshape(32,32,1)
+    img_re = img.reshape(64,64,1)
     img_re /= 255
     model.run_eagerly=True
     probabilities = model.predict(np.array( [img,] ))[0,:]
