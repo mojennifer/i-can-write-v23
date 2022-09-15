@@ -55,7 +55,7 @@ def prediction(filename):
     cropped_image = crop_rows[:, ~np.all(crop_rows==0, axis=0)]
     top, bottom, left, right = [10]*4
     img = cv2.copyMakeBorder(cropped_image, top, bottom, left, right, cv2.BORDER_CONSTANT, value=[0,0,0])
-    img = crop_square(img, 64, cv2.INTER_AREA)
+    img = crop_square(img, 80, cv2.INTER_AREA)
     img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)[1]
     img_re = img.reshape(80,80,1)
     img_re /= 255
