@@ -44,7 +44,7 @@ def prediction(filename):
     mypath = os.path.join('uploads', filename)
     #read image as grayscale
     img_gray = cv2.imread(mypath, cv2.IMREAD_GRAYSCALE)
-    img_gray = cv2.resize(img_gray, (64,64), interpolation = cv2.INTER_NEAREST)
+    img_gray = cv2.resize(img_gray, (80,80), interpolation = cv2.INTER_NEAREST)
     # define a threshold, 128 is the middle of black and white in grayscale
     thresh = 128
     # threshold the image
