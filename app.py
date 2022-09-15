@@ -57,10 +57,10 @@ def prediction(filename):
     img = cv2.copyMakeBorder(cropped_image, top, bottom, left, right, cv2.BORDER_CONSTANT, value=[0,0,0])
     img = crop_square(img, 64, cv2.INTER_AREA)
     img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)[1]
-    img_re = img.reshape(64,64,1)
+    img_re = img.reshape(80,80,1)
     img_re /= 255
     model.run_eagerly=True
-    probabilities = model.predict(np.array( [img,] ))[0,:]
+    probabilities = model.predict(np.array( [img_re,] ))[0,:]
     print(probabilities)
     number_to_class = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     index = np.argsort(probabilities)
